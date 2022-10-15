@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Автор: {{ author }} </h1>
+<strong><p> Дата рождения:</strong> {{author.date_of_birth}}</p>
+{% if author.date_of_death %}
+  <strong><p>Дата смерти: </strong> {{author.date_of_death}}</p>
+{% else %} 
+  <strong><p>Дата сметри:</strong> неизвестна</p>
+{%endif%}
+
+<div style="margin-left:20px;margin-top:20px">
+<h4>Books</h4>
+{% if author.book_set %}
+<ul>
+{% for book in author.book_set.all %}
+  <li><a href="{% url 'book-detail' book.pk %}">{{book}}</a> | Количество копий: {{book.bookinstance_set.all.count}}</li>
+{% endfor %}
+</ul>
+  {% else %} 
+  <p>У автора нет ни одной книги.</p>
+  {% endif %}
+</div>
+{% endblock %}
